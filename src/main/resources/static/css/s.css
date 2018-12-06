@@ -1,0 +1,83 @@
+﻿@charset "utf-8";
+/* CSS Document */
+div.ControlsRow, div.HeadersRow {
+    font-family: Consolas;
+}
+
+div.Canvas {
+    font-family: Consolas;
+    font-size: 13px;
+    background-color: #ECECEC;
+    color: #000000;
+    border: solid 1px #CECECE;
+}
+
+.ObjectBrace {
+    color: #00AA00;
+    font-weight: bold;
+    font-family: Consolas;
+}
+
+.ArrayBrace {
+    color: #0033FF;
+    font-weight: bold;
+    font-family: Consolas;
+}
+
+.PropertyName {
+    /*color: #CC0000;*/
+    /*font-weight: bold;*/
+    font-family: Consolas;
+}
+
+.String {
+    /*color: #FF4E24;*/
+    font-family: Consolas;
+}
+
+.Number {
+    color: #AA00AA;
+    font-family: Consolas;
+}
+
+.Boolean {
+    color: #0000FF;
+    font-family: Consolas;
+}
+
+.Function {
+    color: #AA6633;
+    text-decoration: italic;
+    font-family: Consolas;
+}
+
+.Null {
+    color: #0000FF;
+    font-family: Consolas;
+}
+
+.Comma {
+    /*color: #000000;*/
+    font-weight: bold;
+    font-family: Consolas;
+}
+
+PRE.CodeContainer {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+    PRE.CodeContainer img {
+        cursor: pointer;
+        border: none;
+        margin-bottom: -1px;
+    }
+
+A.OtherToolsLink {
+    color: #555;
+    text-decoration: none;
+}
+
+    A.OtherToolsLink:hover {
+        text-decoration: underline;
+    }

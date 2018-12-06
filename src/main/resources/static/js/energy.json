@@ -1,0 +1,170 @@
+{
+  "nodes": [
+    { "name": "GroupUser" },
+    { "name": "DataDictionary" },
+    { "name": "Xmpp" },
+    { "name": "Empty" },
+    { "name": "Sms" },
+    { "name": "Route" },
+    { "name": "Kit" },
+    { "name": "Quartz" },
+    { "name": "Fundation" },
+    { "name": "News" },
+    { "name": "Notice" },
+    { "name": "Knowledge" },
+    { "name": "WorkPlan" },
+    { "name": "Activity" },
+    { "name": "Outlets" },
+    { "name": "Questionnaire" },
+    { "name": "Report" },
+    { "name": "Subscribtion" },
+    { "name": "SystemSetting" },
+    { "name": "BaseService" },
+    { "name": "FriendCircle" },
+    { "name": "Login" },
+    { "name": "Validation" },
+    { "name": "Permission" }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "target": 23,
+      "value": 100
+    },
+    {
+      "source": 3,
+      "target": 23,
+      "value": 100
+    },
+    {
+      "source": 4,
+      "target": 23,
+      "value": 100
+    },
+    {
+      "source": 5,
+      "target": 6,
+      "value": 100
+    },
+    {
+      "source": 7,
+      "target": 23,
+      "value": 100
+    },
+    {
+      "source": 1,
+      "target": 23,
+      "value": 100
+    },
+    {
+      "source": 21,
+      "target": 6,
+      "value": 10
+    },
+    {
+      "source": 22,
+      "target": 6,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 8,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 9,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 10,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 11,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 12,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 13,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 14,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 15,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 16,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 17,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 18,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 19,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 20,
+      "value": 10
+    },
+    {
+      "source": 2,
+      "target": 20,
+      "value": 10
+    },
+    {
+      "source": 23,
+      "target": 21,
+      "value": 50
+    },
+    {
+      "source": 23,
+      "target": 22,
+      "value": 50
+    },
+    {
+      "source": 2,
+      "target": 23,
+      "value": 10
+    },
+    {
+      "source": 2,
+      "target": 11,
+      "value": 10
+    },
+    {
+      "source": 2,
+      "target": 12,
+      "value": 10
+    },
+    {
+      "source": 2,
+      "target": 13,
+      "value": 10
+    }
+  ]
+}
