@@ -1,6 +1,7 @@
 package com.cnuip.gaea.service.swagger;
 
 
+import com.google.common.base.Predicates;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo(properties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.cnuip"))
-                .paths(PathSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/log")))
                 .build();
     }
 
