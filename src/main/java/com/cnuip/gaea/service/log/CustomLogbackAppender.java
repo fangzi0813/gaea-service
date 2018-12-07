@@ -18,9 +18,15 @@ public class CustomLogbackAppender extends AppenderBase<ILoggingEvent> {
         if (simpMessagingTemplate == null) {
             simpMessagingTemplate = SpringUtil.getBean(SimpMessagingTemplate.class);
         }
-        if (simpMessagingTemplate == null)
-            return;
-        simpMessagingTemplate.convertAndSend("/topic/logListener", log);
+        if (simpMessagingTemplate != null) {
+            if (null != log) {
+                log  = log.replaceAll("\\n", "<br/>")
+                        .replaceAll("<br/>\\s*<br/>", "<br/>")
+                        .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;&nbsp;")
+                        .replaceAll("\\s", "&nbsp;");
+            }
+            simpMessagingTemplate.convertAndSend("/topic/logListener", log);
+        }
     }
 
     public PatternLayoutEncoder getEncoder() {
