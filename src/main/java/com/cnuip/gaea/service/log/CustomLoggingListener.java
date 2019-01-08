@@ -79,6 +79,7 @@ public class CustomLoggingListener implements GenericApplicationListener {
                 logFileStr = logFile.toString() + artifact + ".log";
             }
             RollingFileAppender<ILoggingEvent> appender = new RollingFileAppender<>();
+            appender.setContext(context);
 
             PatternLayoutEncoder encoder = new PatternLayoutEncoder();
             encoder.setPattern(OptionHelper.substVars(FILE_LOG_PATTERN, context));
@@ -87,13 +88,14 @@ public class CustomLoggingListener implements GenericApplicationListener {
 
             SizeAndTimeBasedRollingPolicy<ILoggingEvent> rollingPolicy = new SizeAndTimeBasedRollingPolicy<>();
             rollingPolicy.setFileNamePattern(logFileStr + ".%d{yyyy-MM-dd}.%i.gz");
-            rollingPolicy.setMaxFileSize(FileSize.valueOf("500M"));
+            rollingPolicy.setMaxFileSize(FileSize.valueOf("500MB"));
             rollingPolicy.setMaxHistory(30);
+            rollingPolicy.setParent(appender);
+            rollingPolicy.setContext(context);
             rollingPolicy.start();
 
             appender.setRollingPolicy(rollingPolicy);
             appender.setEncoder(encoder);
-            appender.setContext(context);
             appender.setName("RollingFile Logger");
             appender.setFile(logFileStr);
             appender.start();
