@@ -18,18 +18,18 @@ public class GaeaBootstrap {
 
     public static void run(Class<?>[] primarySources, String[] args) {
         SpringApplication application = new SpringApplication(primarySources);
-        application.addPrimarySources(Collections.singleton(GaeaBootstrap.class));
-        application.addListeners(new CustomLoggingListener());
         Properties properties = new Properties();
         InputStream resource = GaeaBootstrap.class.getClassLoader().getResourceAsStream("META-INF/build-info.properties");
         if (null != resource) {
             try {
                 properties.load(resource);
-                application.setBanner((environment, sourceClass, out) -> out.println(FigletFont.convertOneLine(String.valueOf(properties.get("build.artifact")))));
+                application.setBanner((environment, sourceClass, out) -> out.println(FigletFont.convertOneLine(properties.getProperty("build.artifact"))));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        application.addPrimarySources(Collections.singleton(GaeaBootstrap.class));
+        application.addListeners(new CustomLoggingListener(properties));
         application.run(args);
     }
 

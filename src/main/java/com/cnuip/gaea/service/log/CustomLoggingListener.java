@@ -7,17 +7,16 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
 import ch.qos.logback.core.util.OptionHelper;
-import com.cnuip.gaea.service.utils.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationPreparedEvent;
-import org.springframework.boot.info.BuildProperties;
+import org.springframework.boot.logging.LogFile;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.GenericApplicationListener;
 import org.springframework.core.Ordered;
 import org.springframework.core.ResolvableType;
-
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 public class CustomLoggingListener implements GenericApplicationListener {
 
@@ -32,6 +31,13 @@ public class CustomLoggingListener implements GenericApplicationListener {
     private boolean addedCustomAppender;
 
     private boolean addedRollingFileAppender;
+
+    private String artifact;
+
+    public CustomLoggingListener(Properties p) {
+        this.artifact = p.getProperty("build.artifact");
+    }
+
     @Override
     public boolean supportsEventType(ResolvableType resolvableType) {
         // this is the earliest 'event type' which is capable of exposing the application context
@@ -47,8 +53,7 @@ public class CustomLoggingListener implements GenericApplicationListener {
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         final ch.qos.logback.classic.Logger root = context.getLogger("ROOT");
-        LogProperties logProperties = SpringUtil.getBean(LogProperties.class);
-        BuildProperties buildProperties = SpringUtil.getBean(BuildProperties.class);
+        LogFile logFile = LogFile.get(((ApplicationPreparedEvent) applicationEvent).getApplicationContext().getEnvironment());
         if (!addedCustomAppender) {
             //Add log appender for Monitoring
             CustomLogbackAppender customLogbackAppender = new CustomLogbackAppender();
@@ -68,7 +73,11 @@ public class CustomLoggingListener implements GenericApplicationListener {
             addedCustomAppender = true;
         }
         if (!addedRollingFileAppender) {
-            String logFile = logProperties.getLogFile() + buildProperties.getArtifact() + ".log";
+            root.detachAppender("FILE");
+            String logFileStr = "./logs/" + artifact + ".log";
+            if (logFile != null) {
+                logFileStr = logFile.toString() + artifact + ".log";
+            }
             RollingFileAppender<ILoggingEvent> appender = new RollingFileAppender<>();
 
             PatternLayoutEncoder encoder = new PatternLayoutEncoder();
@@ -77,16 +86,16 @@ public class CustomLoggingListener implements GenericApplicationListener {
             encoder.start();
 
             SizeAndTimeBasedRollingPolicy<ILoggingEvent> rollingPolicy = new SizeAndTimeBasedRollingPolicy<>();
-            rollingPolicy.setFileNamePattern(logFile + ".%d{yyyy-MM-dd}.%i.gz");
-            rollingPolicy.setMaxFileSize(FileSize.valueOf(logProperties.getMaxFileSize()));
-            rollingPolicy.setMaxHistory(logProperties.getMaxHistory());
+            rollingPolicy.setFileNamePattern(logFileStr + ".%d{yyyy-MM-dd}.%i.gz");
+            rollingPolicy.setMaxFileSize(FileSize.valueOf("500M"));
+            rollingPolicy.setMaxHistory(30);
             rollingPolicy.start();
 
             appender.setRollingPolicy(rollingPolicy);
             appender.setEncoder(encoder);
             appender.setContext(context);
             appender.setName("RollingFile Logger");
-            appender.setFile(logFile);
+            appender.setFile(logFileStr);
             appender.start();
             root.addAppender(appender);
 
