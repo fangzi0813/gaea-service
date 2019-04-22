@@ -45,6 +45,11 @@ public class CustomLoggingListener implements GenericApplicationListener {
     }
 
     @Override
+    public boolean supportsSourceType(Class<?> sourceType) {
+        return true;
+    }
+
+    @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         final ch.qos.logback.classic.Logger root = context.getLogger("ROOT");
